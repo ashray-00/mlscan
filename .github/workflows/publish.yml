@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/mlscan
+      url: https://pypi.org/p/mlsupplyscan
     permissions:
       id-token: write   # Trusted Publishing (OIDC) — no API token in secrets
     steps:

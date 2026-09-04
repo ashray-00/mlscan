@@ -1,10 +1,15 @@
 # mlscan
 
-**Static supply-chain audit for machine-learning model artifacts.**
+**PyPI package:** [`mlsupplyscan`](https://pypi.org/project/mlsupplyscan/) · **CLI:** `mlscan` (alias: `mlsupplyscan`)
 
-A scanner that inspects model repositories — Hugging Face IDs, local checkpoint directories, or single weight files — for unsafe serialization formats, embedded code, bundled foreign artifacts, metadata inconsistency, and repository-name confusion. Think of it as software composition analysis for the ML supply chain.
+Static supply-chain scanner for **machine-learning model artifacts** — Hugging Face Hub repos, local checkpoints, and individual weight files.
 
-Zero required dependencies. Python 3.10+. Never executes the artifact it inspects.
+Use it when you need to check whether a model is safe to `torch.load` / `pickle.load` / `from_pretrained(..., trust_remote_code=True)` **before** those APIs run attacker-controlled code. It inspects pickle opcodes, Keras/NumPy/ONNX containers, `auto_map` + bundled Python, chat-template Jinja escapes, Zip Slip, Git LFS stubs, and repository-name typosquatting. Zero required dependencies. Python 3.10+. **Never executes the artifact.**
+
+```bash
+pip install mlsupplyscan
+mlscan scan ./downloaded-model --no-color
+```
 
 ```bash
 $ mlscan scan ./downloaded-model --no-color
@@ -137,17 +142,39 @@ Single-file analysis asks "is this file dangerous?" Consistency analysis asks wh
 
 ## Install
 
+From PyPI (recommended):
+
 ```bash
-git clone <your-repo-url> && cd mlscan
+pip install mlsupplyscan
+mlscan --version
+# same entry point:
+mlsupplyscan --version
+```
+
+From source:
+
+```bash
+git clone https://github.com/ashray-00/mlscan.git && cd mlscan
 pip install -e .
 mlscan --version
 ```
 
-Development extras (just `pytest`):
+Development extras (pytest):
 
 ```bash
 pip install -e '.[dev]'
 ```
+
+### When to use it
+
+| Question | Answer |
+|---|---|
+| Safe to `torch.load` / `pickle.load` this file? | `mlscan scan path/to/file` |
+| Safe to `from_pretrained` this Hub repo? | `mlscan hub org/name --online` before download; then `mlscan scan ./dir --repo-id org/name` |
+| CI gate for model PRs? | emit SARIF (`-f sarif`) or fail on severity (`--fail-on HIGH`) |
+| Need an SBOM-ish inventory? | `-f json` or `-f cyclonedx` |
+
+Related search terms this tool covers: ML model supply chain, Hugging Face model security, pickle RCE in `.pt`/`.bin`/`.ckpt`, `trust_remote_code`, `auto_map`, safetensors vs pickle, model typosquatting.
 
 ---
 

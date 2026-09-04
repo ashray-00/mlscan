@@ -1,35 +1,58 @@
 [project]
-name = "mlscan"
+name = "mlsupplyscan"
 version = "0.1.0"
-description = "Static supply-chain security scanner for ML model artifacts"
+description = "Scan Hugging Face and local ML models for pickle RCE, unsafe torch.load/pickle.load paths, trust_remote_code, Zip Slip, and supply-chain risks — without executing the artifact"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
 authors = [{ name = "Ashray" }]
 keywords = [
-  "security",
-  "supply-chain",
-  "machine-learning",
-  "pickle",
+  "ml-supply-chain",
+  "model-supply-chain",
   "huggingface",
+  "hugging-face",
+  "huggingface-hub",
+  "pickle",
+  "pickle-rce",
+  "torch-load",
+  "pytorch",
   "safetensors",
+  "trust-remote-code",
+  "auto-map",
+  "model-security",
+  "ai-security",
+  "llm-security",
+  "machine-learning-security",
+  "supply-chain-security",
+  "sbom",
+  "sarif",
+  "cyclonedx",
+  "typosquatting",
+  "static-analysis",
+  "ci-cd",
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Environment :: Console",
   "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
   "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Topic :: Security",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Software Development :: Quality Assurance",
+  "Typing :: Typed",
 ]
 dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/ashray-00/mlscan"
+Documentation = "https://github.com/ashray-00/mlscan#readme"
 Repository = "https://github.com/ashray-00/mlscan"
 Issues = "https://github.com/ashray-00/mlscan/issues"
 Changelog = "https://github.com/ashray-00/mlscan/releases"
@@ -40,6 +63,7 @@ dev = ["pytest>=7.0"]
 
 [project.scripts]
 mlscan = "mlscan.cli:main"
+mlsupplyscan = "mlscan.cli:main"
 
 [build-system]
 requires = ["setuptools>=68"]
