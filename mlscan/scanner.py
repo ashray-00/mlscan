@@ -355,7 +355,7 @@ def scan_local(root: Path, hash_files: bool = False,
 
     result.findings.sort(key=lambda f: (f.severity.rank, f.rule_id, f.location, f.title),
                          reverse=True)
-    result.finished_at = _dt.datetime.now(_dt.UTC).isoformat()
+    result.finished_at = _dt.datetime.now(_dt.timezone.utc).isoformat()
     return result
 
 
@@ -420,7 +420,7 @@ def scan_hub(repo_id: str, revision: str = "main", token: str | None = None,
         info = hub.fetch_repo_info(repo_id, token=token)
     except Exception as exc:
         result.errors.append(f"hub metadata unavailable: {type(exc).__name__}: {exc}")
-        result.finished_at = _dt.datetime.now(_dt.UTC).isoformat()
+        result.finished_at = _dt.datetime.now(_dt.timezone.utc).isoformat()
         return result
 
     target.metadata = {k: info.get(k) for k in
@@ -498,7 +498,7 @@ def scan_hub(repo_id: str, revision: str = "main", token: str | None = None,
                 except Exception as exc2:
                     result.errors.append(f"{name}: remote inspection failed ({exc2})")
 
-    result.finished_at = _dt.datetime.now(_dt.UTC).isoformat()
+    result.finished_at = _dt.datetime.now(_dt.timezone.utc).isoformat()
     return result
 
 

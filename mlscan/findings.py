@@ -77,7 +77,7 @@ class ScanResult:
     findings: list[Finding] = field(default_factory=list)
     files: list[FileRecord] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
-    started_at: str = field(default_factory=lambda: _dt.datetime.now(_dt.UTC).isoformat())
+    started_at: str = field(default_factory=lambda: _dt.datetime.now(_dt.timezone.utc).isoformat())
     finished_at: str | None = None
     risk_score: int = 0
     verdict: str = "UNKNOWN"
