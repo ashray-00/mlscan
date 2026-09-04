@@ -1,0 +1,158 @@
+fixtures/
+# ─────────────────────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env
+.python-version
+
+# ─────────────────────────────────────────────────────────────
+# Testing / coverage
+# ─────────────────────────────────────────────────────────────
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.cover
+.hypothesis/
+.mypy_cache/
+.dmypy.json
+.ruff_cache/
+.pytype/
+
+# ─────────────────────────────────────────────────────────────
+# PROJECT-SPECIFIC — read these before deleting anything
+# ─────────────────────────────────────────────────────────────
+
+# Generated test fixtures. These are BUILT, not committed.
+#
+# They contain pickle streams that import os.system and builtins.eval.
+# The payloads are inert (`echo`), but committing files whose whole purpose
+# is to look like malware will get your repository flagged by GitHub secret
+# and malware scanning, by corporate proxies, and by any AV a reviewer runs.
+# `tests/make_fixtures.py` regenerates all of them deterministically in
+# under a second, so there is no reason to ship the artifacts.
+#
+#     python -m tests.make_fixtures
+#
+tests/fixtures/
+
+# Any model weights a user drops in to scan. Never commit these:
+# they are large, usually licensed, and sometimes the very thing you are
+# investigating.
+models/
+checkpoints/
+*.safetensors
+*.gguf
+*.ggml
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.pkl
+*.pickle
+*.joblib
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.keras
+*.msgpack
+*.tflite
+
+# Scan output — regenerate it, don't version it.
+*.sarif
+mlscan-report.*
+report.html
+scan-results/
+/out/
+
+# Refreshed typosquat corpus. Snapshot of a live API; goes stale, and a
+# committed copy invites people to trust it as authoritative. Rebuild with:
+#     mlscan refresh-corpus --limit 1000
+mlscan/data/corpus_refreshed.json
+
+# Hugging Face cache, if anyone points it here
+.cache/
+.huggingface/
+hf_cache/
+
+# Local policy overrides (examples/policy.json IS committed)
+policy.local.json
+.mlscanrc
+
+# ─────────────────────────────────────────────────────────────
+# Secrets — a scanner that talks to an API is a scanner with a token
+# ─────────────────────────────────────────────────────────────
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+.hf_token
+.netrc
+
+# ─────────────────────────────────────────────────────────────
+# Editors / OS
+# ─────────────────────────────────────────────────────────────
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Logs / temp
+*.log
+logs/
+tmp/
+.tmp/
+*.tmp
+*.bak

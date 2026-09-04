@@ -1,0 +1,13 @@
+.venv/
+venv/
+.git/
+.pytest_cache/
+__pycache__/
+*.egg-info/
+fixtures/
+.github/
+tests/
+examples/
+report.html
+*.pyc
+.DS_Store

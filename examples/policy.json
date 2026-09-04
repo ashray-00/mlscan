@@ -1,0 +1,9 @@
+{
+    "fail_on": "HIGH",
+    "block_score": 60,
+    "review_score": 20,
+    "allow_pickle": false,
+    "allow_remote_code": false,
+    "allowlist_repos": [],
+    "ignore_rules": ["MLSC-REPO-004"]
+}

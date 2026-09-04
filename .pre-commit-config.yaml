@@ -1,0 +1,18 @@
+# Dev-only. Runtime remains stdlib-only — do not add ruff/pytest to
+# [project] dependencies.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: mlscan-tests
+        name: mlscan pytest
+        entry: python -m pytest tests/ -q
+        language: system
+        pass_filenames: false
+        types: [python]

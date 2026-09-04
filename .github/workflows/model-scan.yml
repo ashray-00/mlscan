@@ -1,0 +1,26 @@
+name: ML model supply-chain scan
+on:
+  pull_request:
+    paths: ["models/**", "checkpoints/**", "**/*.safetensors", "**/*.bin", "**/*.pt"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write        # required to upload SARIF
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: true }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -e .
+      - name: Scan model directory
+        run: mlscan scan ./models --policy examples/policy.json -f sarif -o mlscan.sarif
+        continue-on-error: true       # let SARIF upload happen, then gate below
+      - uses: github/codeql-action/upload-sarif@v3
+        with: { sarif_file: mlscan.sarif }
+      - name: Enforce policy
+        run: mlscan scan ./models --policy examples/policy.json --fail-on HIGH

@@ -1,0 +1,8 @@
+- id: mlscan
+  name: ML supply-chain scan
+  description: Scan model weight / checkpoint files for unsafe serialization and supply-chain risks
+  entry: mlscan scan
+  language: python
+  types: [file]
+  files: '\.(bin|pt|pth|ckpt|pkl|pickle|safetensors|h5|hdf5|keras|onnx|npy|npz|gguf)$'
+  pass_filenames: true
